@@ -3,6 +3,8 @@ package com.challenge.bktransfer.service;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,51 +19,74 @@ import com.challenge.bktransfer.entity.Account;
 
 @ExtendWith(MockitoExtension.class)
 class AccountServiceImpTest {
-	
+
 	@Mock
 	private AccountDAO accountDAO;
-	
+
 	@InjectMocks
 	private AccountServiceImp accountService;
 	
 	@Before
-    public void setUp() throws Exception {
+	public void setUp() throws Exception {
 
-         MockitoAnnotations.initMocks(this);
-    }
+		MockitoAnnotations.initMocks(this);
+	}
 
-	private Account umaAccount = new Account(123, "Pessoa", 456);
-	
+	private Account anAccount = new Account(123, "Pessoa", 456);
+
 	@Test
-	@DisplayName("Service returns expected account")
+	@DisplayName("Service returns expected account from DAO")
 	public void returnExpectedAccount() {
 		// given
-		when(accountDAO.getAccount(anyInt())).thenReturn(umaAccount);
-		
 		Account expectedAccount = new Account(123, "Pessoa", 456);
-
+		
+		when(accountDAO.getAccount(anyInt())).thenReturn(anAccount);
+		
 		// when
 		Account account = accountService.getAccount(1);
-		
+
 		// then
 		assertEquals(expectedAccount, account);
 	}
-	
+
 	@Test
-	@DisplayName("o")
+	@DisplayName("Service returns a List of accounts from DAO")
 	public void returnExpectedListAccounts() {
+		// given
+		@SuppressWarnings("unchecked")
+		List<Account> expectedList = mock(List.class);
+		expectedList.add(new Account(123, "Pessoa", 456));
+
+		when(accountDAO.getAccounts()).thenReturn(expectedList);
 		
+		// when
+		List<Account> actualList = accountService.getAccounts();
+		
+		// then
+		assertEquals(expectedList, actualList);
 	}
-	
+
 	@Test
-	@DisplayName("o")
+	@DisplayName("Service calls save method from DAO")
 	public void save() {
+		// given
 		
+		// when
+		accountService.saveAccount(anAccount);
+		
+		// then
+		verify(accountDAO).saveAccount(anAccount);
 	}
-	
+
 	@Test
-	@DisplayName("o")
+	@DisplayName("Service calls delete method from DAO")
 	public void delete() {
-		
+		// given
+
+		// when
+		accountService.deleteAccount(anyInt());
+
+		// then
+		verify(accountDAO).deleteAccount(anyInt());
 	}
 }

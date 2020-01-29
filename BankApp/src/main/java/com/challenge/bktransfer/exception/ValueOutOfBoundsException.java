@@ -1,4 +1,4 @@
-package com.challenge.bktransfer.rest;
+package com.challenge.bktransfer.exception;
 
 public class ValueOutOfBoundsException extends RuntimeException{
 

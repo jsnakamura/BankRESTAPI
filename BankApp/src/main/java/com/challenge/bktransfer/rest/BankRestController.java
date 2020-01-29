@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.challenge.bktransfer.entity.Account;
 import com.challenge.bktransfer.entity.Entry;
+import com.challenge.bktransfer.exception.AccountNotFoundException;
+import com.challenge.bktransfer.exception.ValueOutOfBoundsException;
 import com.challenge.bktransfer.service.AccountService;
 
 @RestController

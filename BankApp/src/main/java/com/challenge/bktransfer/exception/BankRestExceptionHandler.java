@@ -1,4 +1,4 @@
-package com.challenge.bktransfer.rest;
+package com.challenge.bktransfer.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class BankRestExceptionHandler {
 
 	@ExceptionHandler
-	public ResponseEntity<AccountErrorResponse> handleException(AccountNotFoundException exc) {
+	public ResponseEntity<BankErrorResponse> handleException(AccountNotFoundException exc) {
 
-		AccountErrorResponse error = new AccountErrorResponse();
+		BankErrorResponse error = new BankErrorResponse();
 
 		error.setStatus(HttpStatus.NOT_FOUND.value());
 		error.setMessage(exc.getMessage());
@@ -21,9 +21,9 @@ public class BankRestExceptionHandler {
 	}
 
 	@ExceptionHandler
-	public ResponseEntity<AccountErrorResponse> handleException(Exception exc) {
+	public ResponseEntity<BankErrorResponse> handleException(Exception exc) {
 
-		AccountErrorResponse error = new AccountErrorResponse();
+		BankErrorResponse error = new BankErrorResponse();
 
 		error.setStatus(HttpStatus.BAD_REQUEST.value());
 		error.setMessage(exc.getMessage());
@@ -33,9 +33,9 @@ public class BankRestExceptionHandler {
 	}
 	
 	@ExceptionHandler
-	public ResponseEntity<AccountErrorResponse> handleException(ValueOutOfBoundsException exc) {
+	public ResponseEntity<BankErrorResponse> handleException(ValueOutOfBoundsException exc) {
 
-		AccountErrorResponse error = new AccountErrorResponse();
+		BankErrorResponse error = new BankErrorResponse();
 
 		error.setStatus(HttpStatus.EXPECTATION_FAILED.value());
 		error.setMessage(exc.getMessage());

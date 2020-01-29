@@ -1,15 +1,15 @@
-package com.challenge.bktransfer.rest;
+package com.challenge.bktransfer.exception;
 
-public class AccountErrorResponse {
+public class BankErrorResponse {
 	
 	private int status;
 	private String message;
 	private long timeStamp;
 
-	public AccountErrorResponse() {
+	public BankErrorResponse() {
 	}
 
-	public AccountErrorResponse(int status, String message, long timeStamp) {
+	public BankErrorResponse(int status, String message, long timeStamp) {
 		super();
 		this.status = status;
 		this.message = message;
