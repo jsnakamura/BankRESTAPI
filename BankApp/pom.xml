@@ -166,7 +166,7 @@
 	<!-- Support for Maven WAR Plugin -->
 
 	<build>
-		<finalName>bank-transfer-challenge</finalName>
+		<finalName>bkt-rest-api</finalName>
 
 		<pluginManagement>
 			<plugins>
