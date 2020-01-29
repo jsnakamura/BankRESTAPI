@@ -19,7 +19,7 @@ import com.challenge.bktransfer.entity.Account;
 class AccountServiceImpTest {
 	
 	@Mock
-	AccountDAO accountDAO;
+	private AccountDAO accountDAO;
 	
 	@InjectMocks
 	private AccountServiceImp accountService;

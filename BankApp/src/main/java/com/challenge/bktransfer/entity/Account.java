@@ -7,6 +7,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+* Entity Account
+*
+* @version 1.0
+*
+* @author Juliano Nakamura 
+**/
 @Entity
 @Table(name = "accounts")
 public class Account implements Identifiable {
@@ -66,7 +73,7 @@ public class Account implements Identifiable {
 		this.balance = balance;
 	}
 
-	public void incrementBalance(double value) {
+	public void increaseBalance(double value) {
 		balance += value;
 	}
 

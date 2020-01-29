@@ -10,17 +10,33 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 /**
- * @author USUÁRIO
+ * @author Juliano Nakamura
  *
  */
 @ExtendWith(MockitoExtension.class)
 class AccountTest {
 
+	Account account = new Account(123, "Pessoa", 456);
+
 	@Test
-	void increment() {
+	void increaseAccountBalance() {
+		// given
+
+		// when
+		account.increaseBalance(456);
+
+		// then
+		assertEquals(912, account.getBalance());
 	}
-	
+
 	@Test
-	void decrement() {
+	void decreaseAccountBalance() {
+		// given
+
+		// when
+		account.decreaseBalance(456);
+
+		// then
+		assertEquals(0, account.getBalance());
 	}
 }

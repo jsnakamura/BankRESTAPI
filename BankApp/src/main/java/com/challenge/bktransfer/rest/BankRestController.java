@@ -44,8 +44,18 @@ public class BankRestController {
 		Account bailor = accountService.getAccount(entry.getBailorAccountNumber());
 		Account depositary = accountService.getAccount(entry.getDepositaryAccountNumber());
 
+		if (bailor == null) {
+			throw new AccountNotFoundException("Bailor account number not found - " + entry.getBailorAccountNumber() + ".");
+		} 
+		else if (depositary == null) {
+			throw new AccountNotFoundException("Depositary account number not found - " + entry.getDepositaryAccountNumber() + ".");
+		}
+		else if(entry.getValue() > bailor.getBalance() ) {
+			throw new ValueOutOfBoundsException("Bailor - " + bailor.getAccountNumber() + " doesnt have enough funds.");
+		}
+		
 		bailor.decreaseBalance(entry.getValue());
-		depositary.incrementBalance(entry.getValue());
+		depositary.increaseBalance(entry.getValue());
 
 		accountService.saveAccount(bailor);
 		accountService.saveAccount(depositary);
@@ -57,7 +67,11 @@ public class BankRestController {
 	public Account deposit(@RequestBody Entry entry) {
 		Account account = accountService.getAccount(entry.getDepositaryAccountNumber());
 
-		account.incrementBalance(entry.getValue());
+		if (account == null) {
+			throw new AccountNotFoundException("Account number not found - " + entry.getDepositaryAccountNumber() + ".");
+		}
+		
+		account.increaseBalance(entry.getValue());
 
 		accountService.saveAccount(account);
 
@@ -68,6 +82,13 @@ public class BankRestController {
 	public Account withdraw(@RequestBody Entry entry) {
 		Account account = accountService.getAccount(entry.getBailorAccountNumber());
 
+		if (account == null) {
+			throw new AccountNotFoundException("Account number not found - " + entry.getBailorAccountNumber() + ".");
+		} 
+		else if(entry.getValue() > account.getBalance() ) {
+			throw new ValueOutOfBoundsException("You dont have enough funds.");
+		}
+		
 		account.decreaseBalance(entry.getValue());
 
 		accountService.saveAccount(account);
@@ -80,7 +101,7 @@ public class BankRestController {
 		Account account = accountService.getAccount(accountNumber);
 
 		if (account == null) {
-			throw new AccountNotFoundException("Account number not found - " + accountNumber);
+			throw new AccountNotFoundException("Account number not found - " + accountNumber + ".");
 		}
 
 		accountService.deleteAccount(accountNumber);

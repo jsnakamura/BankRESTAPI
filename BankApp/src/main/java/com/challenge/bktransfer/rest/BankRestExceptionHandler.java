@@ -31,4 +31,16 @@ public class BankRestExceptionHandler {
 
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
+	
+	@ExceptionHandler
+	public ResponseEntity<AccountErrorResponse> handleException(ValueOutOfBoundsException exc) {
+
+		AccountErrorResponse error = new AccountErrorResponse();
+
+		error.setStatus(HttpStatus.EXPECTATION_FAILED.value());
+		error.setMessage(exc.getMessage());
+		error.setTimestamp(System.currentTimeMillis());
+
+		return new ResponseEntity<>(error, HttpStatus.EXPECTATION_FAILED);
+	}
 }
