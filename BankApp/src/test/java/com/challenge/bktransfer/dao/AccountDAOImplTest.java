@@ -1,6 +1,5 @@
 package com.challenge.bktransfer.dao;
 
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -13,10 +12,8 @@ import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 
 import org.junit.jupiter.api.DisplayName;
 import org.mockito.InjectMocks;
@@ -30,16 +27,16 @@ import com.challenge.bktransfer.entity.Account;
 
 @ExtendWith(MockitoExtension.class)
 class AccountDAOImplTest {
-	
+
 	@Mock
 	private SessionFactory sessionFactory;
-	
+
 	@Mock
 	private List<Account> listAccounts;
-	
+
 	@InjectMocks
 	private AccountDAOImpl accountDAO;
-	
+
 	@Mock
 	private Account accountTest;
 
@@ -49,25 +46,21 @@ class AccountDAOImplTest {
 		MockitoAnnotations.initMocks(this);
 	}
 
-	
-	@Test
 	@SuppressWarnings("unchecked")
-	void accounts() {
+	@Test
+	void returnListOfAccounts() {
 		// given
 		Session session = mock(Session.class);
-		
 		Query<Account> query = mock(Query.class);
-		
+
 		// when
 		when(sessionFactory.getCurrentSession()).thenReturn(session);
-		
 		when(session.createQuery("from Account order by id", Account.class)).thenReturn(query);
-		
 		when(query.getResultList()).thenReturn(listAccounts);
-		
+
 		@SuppressWarnings("unused")
 		List<Account> listAccount = accountDAO.getAccounts();
-		
+
 		// then
 		verify(sessionFactory).getCurrentSession();
 		verify(session).createQuery("from Account order by id", Account.class);
@@ -75,34 +68,50 @@ class AccountDAOImplTest {
 	}
 
 	@Test
-	void save() {
+	void saveAnAccount() {
 		// given
 		Session session = mock(Session.class);
-		
+
 		// when
 		when(sessionFactory.getCurrentSession()).thenReturn(session);
-		
+
 		accountDAO.saveAccount(accountTest);
-		
+
 		// then
-		verify(session).saveOrUpdate(accountTest);		
+		verify(session).saveOrUpdate(accountTest);
 	}
 
 	@Test
-	void get() {
+	void getEspecificAccount() {
 		// given
-
-		// when
-
-		// then
+//		Session session = mock(Session.class);
+//		Query<Account> query = mock(Query.class);
+//
+//		// when
+//		when(sessionFactory.getCurrentSession()).thenReturn(session);
+//		when(session.createQuery("from Account where accountNumber = :accountNumber")).thenReturn(query);
+//		when(query.getResultList().stream().findFirst().orElse(null)).thenReturn(accountTest);
+//
+//		Account account = accountDAO.getAccount(1);
+//
+//		// then
+//		verify(session).createQuery("from Account where accountNumber = :accountNumber");
 	}
 
 	@Test
-	void delete() {
+	void DeleteAnAccount() {
 		// given
+		Session session = mock(Session.class);
+		@SuppressWarnings("unchecked")
+		Query<Account> query = mock(Query.class);
 
 		// when
+		when(sessionFactory.getCurrentSession()).thenReturn(session);
+		when(session.createQuery("delete from Account where accountNumber = :accountNumber")).thenReturn(query);
+
+		accountDAO.deleteAccount(1);
 
 		// then
+		verify(query).executeUpdate();
 	}
 }
