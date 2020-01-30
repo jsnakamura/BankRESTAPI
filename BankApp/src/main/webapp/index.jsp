@@ -4,56 +4,63 @@
 
 <head>
 <title>Bank Index</title>
+<style>
+table, th, td {
+	border: 1px solid black;
+}
 
+</style>
 </head>
 
 <body>
 
-	<div id="wrapper">
-		<div id="header">
-			<h2>Bank</h2>
-		</div>
-	</div>
-
-	<div id="container">
-
-		<div id="content">
-
-			<!-- New Account -->
-			<input type="button" value="New Account"
-				onclick="window.location.href='newAccount'; return false;"
-				class="new-button" />
-
-			<!-- Transfer between accounts -->
-			<input type="button" value="Transfer"
-				onclick="window.location.href='Transfer'; return false;"
-				class="transfer-button" />
-
-			<!-- Deposit -->
-			<input type="button" value="Deposit"
-				onclick="window.location.href='Deposit'; return false;"
-				class="deposit-button" />
-
-			<!-- Withdrawal -->
-			<input type="button" value="Withdraw"
-				onclick="window.location.href='Withdraw'; return false;"
-				class="withdraw-button" />
-
-			<!-- Delete Account -->
-			<input type="button" value="Delete"
-				onclick="window.location.href='Delete'; return false;"
-				class="delete-button" />
-				
-			<!-- List Accounts -->
-			<input type="button" value="List Accounts"
-				onclick="window.location.href='list'; return false;"
-				class="list-button" />
-
-		</div>
-
-	</div>
-
-
+<h2>Bank index</h2>
+	<table style="width: 100%">
+		<tr>
+			<th>Function</th>
+			<th>REST API call</th>
+			<th>HTTP method</th>
+			<th>Json content</th>
+		</tr>
+		<tr>
+			<td>List accounts</td>
+			<td>/list</td>
+			<td>GET</td>
+			<td>null</td>
+		</tr>
+		<tr>
+			<td>New account</td>
+			<td>/newaccount</td>
+			<td>POST</td>
+			<td>{ "name": stringName, "accountNumber": intValue }</td>
+		</tr>
+		<tr>
+			<td>Transfer value between accounts</td>
+			<td>/transfer</td>
+			<td>PUT</td>
+			<td>{ "bailorAccountNumber": intValue,
+				"depositaryAccountNumber": intValue, "value": doubleValue }</td>
+		</tr>
+		<tr>
+			<td>Deposit value</td>
+			<td>/deposit</td>
+			<td>PUT</td>
+			<td>{ "depositaryAccountNumber": intValue, "value": doubleValue
+				}</td>
+		</tr>
+		<tr>
+			<td>Withdraw value</td>
+			<td>/withdraw</td>
+			<td>PUT</td>
+			<td>{ "bailorAccountNumber": intValue, "value": doubleValue }</td>
+		</tr>
+		<tr>
+			<td>Delete account</td>
+			<td>/delete/{accountId}</td>
+			<td>DELETE</td>
+			<td>null</td>
+		</tr>
+	</table>
 </body>
 
 </html>

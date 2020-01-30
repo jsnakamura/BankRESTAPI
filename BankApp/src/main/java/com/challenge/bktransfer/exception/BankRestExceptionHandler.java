@@ -5,6 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+/**
+ * @author Juliano Nakamura
+ *
+ */
 @ControllerAdvice
 public class BankRestExceptionHandler {
 
@@ -31,7 +35,7 @@ public class BankRestExceptionHandler {
 
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
-	
+
 	@ExceptionHandler
 	public ResponseEntity<BankErrorResponse> handleException(ValueOutOfBoundsException exc) {
 

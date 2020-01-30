@@ -10,6 +10,10 @@ import org.springframework.stereotype.Repository;
 
 import com.challenge.bktransfer.entity.Account;
 
+/**
+ * @author Juliano Nakamura
+ *
+ */
 @Repository
 public class AccountDAOImpl implements AccountDAO {
 
@@ -54,5 +58,4 @@ public class AccountDAOImpl implements AccountDAO {
 
 		query.executeUpdate();
 	}
-
 }

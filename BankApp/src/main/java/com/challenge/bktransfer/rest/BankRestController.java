@@ -15,19 +15,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.challenge.bktransfer.entity.Account;
-import com.challenge.bktransfer.entity.Entry;
+import com.challenge.bktransfer.entity.RequestEntry;
 import com.challenge.bktransfer.exception.AccountNotFoundException;
 import com.challenge.bktransfer.exception.ValueOutOfBoundsException;
 import com.challenge.bktransfer.service.AccountService;
 
+/**
+ * @author Juliano Nakamura
+ *
+ */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/")
 public class BankRestController {
 
 	@Autowired
 	private AccountService accountService;
 
-	@GetMapping("/list")
+	@GetMapping("/accounts")
 	public List<Account> listAccounts(Model model) {
 		return accountService.getAccounts();
 	}
@@ -42,22 +46,22 @@ public class BankRestController {
 	}
 
 	@PutMapping("/transfer")
-	public List<Account> transfer(@RequestBody Entry entry) {
-		Account bailor = accountService.getAccount(entry.getBailorAccountNumber());
-		Account depositary = accountService.getAccount(entry.getDepositaryAccountNumber());
+	public List<Account> transfer(@RequestBody RequestEntry requestEntry) {
+		Account bailor = accountService.getAccount(requestEntry.getBailorAccountNumber());
+		Account depositary = accountService.getAccount(requestEntry.getDepositaryAccountNumber());
 
 		if (bailor == null) {
-			throw new AccountNotFoundException("Bailor account number not found - " + entry.getBailorAccountNumber() + ".");
-		} 
-		else if (depositary == null) {
-			throw new AccountNotFoundException("Depositary account number not found - " + entry.getDepositaryAccountNumber() + ".");
-		}
-		else if(entry.getValue() > bailor.getBalance() ) {
+			throw new AccountNotFoundException(
+					"Bailor account number not found - " + requestEntry.getBailorAccountNumber() + ".");
+		} else if (depositary == null) {
+			throw new AccountNotFoundException(
+					"Depositary account number not found - " + requestEntry.getDepositaryAccountNumber() + ".");
+		} else if (requestEntry.getValue() > bailor.getBalance()) {
 			throw new ValueOutOfBoundsException("Bailor - " + bailor.getAccountNumber() + " doesnt have enough funds.");
 		}
-		
-		bailor.decreaseBalance(entry.getValue());
-		depositary.increaseBalance(entry.getValue());
+
+		bailor.decreaseBalance(requestEntry.getValue());
+		depositary.increaseBalance(requestEntry.getValue());
 
 		accountService.saveAccount(bailor);
 		accountService.saveAccount(depositary);
@@ -66,14 +70,15 @@ public class BankRestController {
 	}
 
 	@PutMapping("/deposit")
-	public Account deposit(@RequestBody Entry entry) {
-		Account account = accountService.getAccount(entry.getDepositaryAccountNumber());
+	public Account deposit(@RequestBody RequestEntry requestEntry) {
+		Account account = accountService.getAccount(requestEntry.getDepositaryAccountNumber());
 
 		if (account == null) {
-			throw new AccountNotFoundException("Account number not found - " + entry.getDepositaryAccountNumber() + ".");
+			throw new AccountNotFoundException(
+					"Account number not found - " + requestEntry.getDepositaryAccountNumber() + ".");
 		}
-		
-		account.increaseBalance(entry.getValue());
+
+		account.increaseBalance(requestEntry.getValue());
 
 		accountService.saveAccount(account);
 
@@ -81,17 +86,17 @@ public class BankRestController {
 	}
 
 	@PutMapping("/withdraw")
-	public Account withdraw(@RequestBody Entry entry) {
-		Account account = accountService.getAccount(entry.getBailorAccountNumber());
+	public Account withdraw(@RequestBody RequestEntry requestEntry) {
+		Account account = accountService.getAccount(requestEntry.getBailorAccountNumber());
 
 		if (account == null) {
-			throw new AccountNotFoundException("Account number not found - " + entry.getBailorAccountNumber() + ".");
-		} 
-		else if(entry.getValue() > account.getBalance() ) {
+			throw new AccountNotFoundException(
+					"Account number not found - " + requestEntry.getBailorAccountNumber() + ".");
+		} else if (requestEntry.getValue() > account.getBalance()) {
 			throw new ValueOutOfBoundsException("You dont have enough funds.");
 		}
-		
-		account.decreaseBalance(entry.getValue());
+
+		account.decreaseBalance(requestEntry.getValue());
 
 		accountService.saveAccount(account);
 

@@ -1,11 +1,15 @@
 package com.challenge.bktransfer.entity;
 
-public class Entry {
-	
+/**
+ * @author Juliano Nakamura
+ *
+ */
+public class RequestEntry {
+
 	private int bailorAccountNumber;
-	
+
 	private int depositaryAccountNumber;
-	
+
 	private double value;
 
 	public int getBailorAccountNumber() {

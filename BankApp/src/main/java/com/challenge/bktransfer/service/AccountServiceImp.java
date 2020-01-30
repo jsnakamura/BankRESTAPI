@@ -8,6 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.challenge.bktransfer.dao.AccountDAO;
 import com.challenge.bktransfer.entity.Account;
 
+/**
+ * @author Juliano Nakamura
+ *
+ */
 @Service
 public class AccountServiceImp implements AccountService {
 
