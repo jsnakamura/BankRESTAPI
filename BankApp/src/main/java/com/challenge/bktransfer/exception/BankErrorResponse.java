@@ -1,7 +1,11 @@
 package com.challenge.bktransfer.exception;
 
+/**
+ * @author Juliano Nakamura
+ *
+ */
 public class BankErrorResponse {
-	
+
 	private int status;
 	private String message;
 	private long timeStamp;

@@ -2,6 +2,10 @@ package com.challenge.bktransfer.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+/**
+ * @author Juliano Nakamura
+ *
+ */
 public class MvcDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override

@@ -4,6 +4,10 @@ import java.util.List;
 
 import com.challenge.bktransfer.entity.Account;
 
+/**
+ * @author Juliano Nakamura
+ *
+ */
 public interface AccountService {
 
 	public List<Account> getAccounts();

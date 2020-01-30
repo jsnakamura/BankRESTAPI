@@ -1,6 +1,10 @@
 package com.challenge.bktransfer.exception;
 
-public class ValueOutOfBoundsException extends RuntimeException{
+/**
+ * @author Juliano Nakamura
+ *
+ */
+public class ValueOutOfBoundsException extends RuntimeException {
 
 	private static final long serialVersionUID = 3839716185136019660L;
 

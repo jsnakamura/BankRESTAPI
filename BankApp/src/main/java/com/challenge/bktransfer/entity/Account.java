@@ -8,12 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
-* Entity Account
-*
-* @version 1.0
-*
-* @author Juliano Nakamura 
-**/
+ * Entity Account
+ *
+ * @version 1.0
+ *
+ * @author Juliano Nakamura
+ **/
 @Entity
 @Table(name = "accounts")
 public class Account implements Identifiable {
@@ -122,5 +122,4 @@ public class Account implements Identifiable {
 		return "Account [accountNumber=" + accountNumber + ", name=" + name + ", balance=" + balance + "]";
 	}
 
-	
 }

@@ -1,6 +1,5 @@
 package com.challenge.bktransfer.dao;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.util.List;
@@ -24,7 +23,6 @@ import com.challenge.bktransfer.entity.Account;
  * @author Juliano Nakamura
  *
  */
-
 @ExtendWith(MockitoExtension.class)
 class AccountDAOImplTest {
 
@@ -79,23 +77,6 @@ class AccountDAOImplTest {
 
 		// then
 		verify(session).saveOrUpdate(accountTest);
-	}
-
-	@Test
-	void getEspecificAccount() {
-		// given
-//		Session session = mock(Session.class);
-//		Query<Account> query = mock(Query.class);
-//
-//		// when
-//		when(sessionFactory.getCurrentSession()).thenReturn(session);
-//		when(session.createQuery("from Account where accountNumber = :accountNumber")).thenReturn(query);
-//		when(query.getResultList().stream().findFirst().orElse(null)).thenReturn(accountTest);
-//
-//		Account account = accountDAO.getAccount(1);
-//
-//		// then
-//		verify(session).createQuery("from Account where accountNumber = :accountNumber");
 	}
 
 	@Test

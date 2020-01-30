@@ -17,6 +17,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.challenge.bktransfer.dao.AccountDAO;
 import com.challenge.bktransfer.entity.Account;
 
+/**
+ * @author Juliano Nakamura
+ *
+ */
 @ExtendWith(MockitoExtension.class)
 class AccountServiceImpTest {
 
@@ -25,7 +29,7 @@ class AccountServiceImpTest {
 
 	@InjectMocks
 	private AccountServiceImp accountService;
-	
+
 	@Before
 	public void setUp() throws Exception {
 
@@ -39,9 +43,9 @@ class AccountServiceImpTest {
 	public void returnExpectedAccount() {
 		// given
 		Account expectedAccount = new Account(123, "Pessoa", 456);
-		
+
 		when(accountDAO.getAccount(anyInt())).thenReturn(anAccount);
-		
+
 		// when
 		Account account = accountService.getAccount(1);
 
@@ -58,10 +62,10 @@ class AccountServiceImpTest {
 		expectedList.add(new Account(123, "Pessoa", 456));
 
 		when(accountDAO.getAccounts()).thenReturn(expectedList);
-		
+
 		// when
 		List<Account> actualList = accountService.getAccounts();
-		
+
 		// then
 		assertEquals(expectedList, actualList);
 	}
@@ -70,10 +74,10 @@ class AccountServiceImpTest {
 	@DisplayName("Service calls save method from DAO")
 	public void save() {
 		// given
-		
+
 		// when
 		accountService.saveAccount(anAccount);
-		
+
 		// then
 		verify(accountDAO).saveAccount(anAccount);
 	}
